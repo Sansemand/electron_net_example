@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,7 @@ namespace electron_net_example
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
@@ -44,6 +46,9 @@ namespace electron_net_example
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Open the Electron-Window
+            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
         }
     }
 }
